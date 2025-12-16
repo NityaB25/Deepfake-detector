@@ -1,8 +1,11 @@
-import NextAuth from "next-auth";
+import NextAuth, { type NextAuthOptions } from "next-auth";
 import Google from "next-auth/providers/google";
 import jwt from "jsonwebtoken";
 
-export const authOptions = {
+import type { JWT } from "next-auth/jwt";
+import type { Session, User } from "next-auth";
+
+export const authOptions: NextAuthOptions = {
   providers: [
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -15,11 +18,13 @@ export const authOptions = {
   },
 
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user }: { token: JWT; user?: User }) {
       if (user) {
-        token.email = user.email;
-        token.name = user.name;
-        token.picture = user.image;
+        token.email = user.email ?? undefined;
+        token.name = user.name ?? undefined;
+        token.picture = user.image ?? undefined;
+
+
 
         token.backendToken = jwt.sign(
           {
@@ -34,15 +39,20 @@ export const authOptions = {
       return token;
     },
 
-    async session({ session, token }) {
+    async session({
+      session,
+      token,
+    }: {
+      session: Session;
+      token: JWT;
+    }) {
       session.user = {
         email: token.email as string,
         name: token.name as string,
         image: token.picture as string,
       };
 
-      // 🔥 EXPOSE BACKEND TOKEN
-      (session as any).backendToken = token.backendToken;
+      session.backendToken = token.backendToken as string;
 
       return session;
     },
