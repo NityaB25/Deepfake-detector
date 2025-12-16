@@ -2,6 +2,8 @@
 
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import React from "react";
+
 import {
   History as HistoryIcon,
   Filter,
@@ -247,7 +249,7 @@ function Stat({
 }: {
   label: string;
   value: number;
-  icon: JSX.Element;
+  icon: React.ReactNode;
 }) {
   return (
     <div className="bg-gray-800/40 p-4 rounded-xl">
