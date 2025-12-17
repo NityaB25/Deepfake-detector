@@ -5,8 +5,9 @@ export const Scan = model("Scan", new Schema({
   cookieOwnerHash: String,
   fileUrl: String,
   fileType: { type: String, enum: ["image", "video"] },
-  ourScore: Number,
-  apiScore: Number,
+  ourScore: { type: Number, min: 0, max: 1, default: null },
+apiScore: { type: Number, min: 0, max: 1, default: null },
+
   verdict: { type: String, enum: ["Real","Fake","Inconclusive"] },
   modelMeta: Schema.Types.Mixed,
   providerMeta: Schema.Types.Mixed
