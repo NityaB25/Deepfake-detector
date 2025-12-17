@@ -209,8 +209,8 @@ export default function UploadPage() {
         ) : (
           <AnalysisResult
             title="Analysis Complete"
-              ourScore={Math.round((1 - result.ourScore) * 100)}
-              apiScore={Math.round((1 - result.apiScore) * 100)}
+              ourScore={Math.round(result.ourScore * 100)}
+              apiScore={Math.round(result.apiScore*100)}
 
             verdict={result.verdict}
            
