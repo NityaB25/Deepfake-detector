@@ -199,7 +199,13 @@ export function AnalysisResult({
 
       {/* Score Gauges */}
       <div className="flex justify-center items-center gap-12 mb-8">
-        <ScoreGauge score={ourScore} label="Our Model" size="lg" />
+        {ourScore == null ? (
+  <span>Model unavailable</span>
+) : (
+   <ScoreGauge score={ourScore} label="Our Model" size="lg" />
+)}
+
+       
         <ScoreGauge score={apiScore} label="API Model" size="lg" />
       </div>
 

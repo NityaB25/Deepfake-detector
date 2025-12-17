@@ -187,6 +187,14 @@ router.get("/user/profile", async (req, res) => {
     Scan.find({ userId }).sort({ createdAt: -1 }).limit(20).lean(),
   ]);
 
+  function normalizeScore(s: number | null | undefined) {
+  if (typeof s !== "number") return null;
+  if (s < 0) return null;
+  if (s > 1) return 1;
+  return s;
+}
+
+
   res.json({
     user: (req as any).user, // { id, email, name }
     stats: { total, real, fake, inconclusive },
