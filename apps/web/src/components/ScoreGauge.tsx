@@ -1,9 +1,12 @@
 "use client";
 type Props = { value: number; label: string; className?: string };
 export function ScoreGauge({ value, label, className = "" }: Props) {
-  const pct = Math.max(0, Math.min(100, Math.round((Number.isFinite(value) ? value : 0) * 100)));
+  const safe = typeof value === "number" && value >= 0 ? value : 0;
+const pct = Math.round(safe * 100);
+
   const r = 52, c = 2 * Math.PI * r;
   const dash = (pct / 100) * c;
+  
   return (
     <div className={`flex flex-col items-center ${className}`}>
       <svg viewBox="0 0 140 140" className="h-36 w-36">

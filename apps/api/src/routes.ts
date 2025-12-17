@@ -74,17 +74,27 @@ router.post("/scan", async (req, res) => {
     detect({ fileUrl, fileType }),
   ]);
 
-  const ourScore = ml.status === "fulfilled" ? ml.value.score : -1;
-  const apiScore = ext.status === "fulfilled" ? ext.value.score : -1;
+const ourScore =
+  ml.status === "fulfilled" && Number.isFinite(ml.value.score)
+    ? Math.max(0, Math.min(1, ml.value.score))
+    : null;
 
-  if (ourScore < 0 && apiScore < 0) {
-    return res.status(502).json({ error: "both-detectors-failed" });
-  }
+const apiScore =
+  ext.status === "fulfilled" && Number.isFinite(ext.value.score)
+    ? Math.max(0, Math.min(1, ext.value.score))
+    : null;
+
+
+  if (ourScore === null && apiScore === null) {
+  return res.status(502).json({ error: "both-detectors-failed" });
+}
+
 
   const v = decideVerdict(
-    ourScore < 0 ? apiScore : ourScore,
-    apiScore < 0 ? ourScore : apiScore
-  );
+  ourScore ?? apiScore ?? 0,
+  apiScore ?? ourScore ?? 0
+);
+
 
   const userId = (req as any).user?.id as string | undefined;
 
@@ -202,8 +212,8 @@ router.get("/user/profile", async (req, res) => {
       id: String(s._id),
       createdAt: s.createdAt,
       verdict: s.verdict,
-      ourScore: s.ourScore,
-      apiScore: s.apiScore,
+       ourScore: normalizeScore(s.ourScore),
+        apiScore: normalizeScore(s.apiScore),
     })),
   });
 });
