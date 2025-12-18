@@ -20,6 +20,15 @@ export default function HomePage() {
       gradient: "from-purple-500 to-pink-500",
       shadow: "shadow-purple-500/20",
     },
+
+    {
+      title: "How It Works",
+      description: "Understand how scores are calculated and what they mean.",
+      icon: Shield,
+       href: "/how-it-works",
+      gradient: "from-emerald-500 to-teal-500",
+      shadow: "shadow-emerald-500/20",
+},
     {
       title: "History",
       description: "See your recent scans.",
@@ -73,7 +82,8 @@ export default function HomePage() {
           </div>
 
           {/* Action Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
+         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+
             {actions.map((action, index) => {
               const Icon = action.icon;
               return (
