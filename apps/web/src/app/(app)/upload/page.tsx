@@ -212,7 +212,7 @@ export default function UploadPage() {
             
               
               ourScore={Math.round(result.ourScore)*100}
-              apiScore={result.apiScore}
+              apiScore={Math.round(result.apiScore)*100}
 
             verdict={result.verdict}
            
