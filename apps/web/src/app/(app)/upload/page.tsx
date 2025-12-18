@@ -211,7 +211,7 @@ export default function UploadPage() {
             title="Analysis Complete"
             
               
-              ourScore={result.ourScore}
+              ourScore={Math.round(result.ourScore)*100}
               apiScore={result.apiScore}
 
             verdict={result.verdict}
