@@ -123,7 +123,7 @@ export default function ProfilePage() {
             <ResponsiveContainer width="100%" height={200}>
               <LineChart data={chartData}>
                 <XAxis dataKey="index" />
-                <YAxis domain={[0, 100]} />
+                <YAxis domain={[0, 1]} />
                 <Tooltip />
                 <Line dataKey="score" stroke="#3B82F6" strokeWidth={2} />
               </LineChart>
