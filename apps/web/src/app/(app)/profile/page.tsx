@@ -145,8 +145,8 @@ export default function ProfilePage() {
                 <div className="mt-1">{s.verdict}</div>
               </div>
               <div className="flex gap-6">
-                <Score label="Our" value={Math.round((1 - s.ourScore) * 100)} />
-                <Score label="API" value={s.apiScore} />
+                <Score label="Our" value={Math.round((s.ourScore) * 100)} />
+                <Score label="API" value={Math.round(s.apiScore*100)} />
               </div>
             </div>
           ))}
