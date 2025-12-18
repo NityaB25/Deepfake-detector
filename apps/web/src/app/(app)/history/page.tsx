@@ -220,8 +220,8 @@ export default function HistoryPage() {
                     </a>
 
                     <div className="flex gap-6 mt-4">
-                      <Score label="Our" value={Math.round(1-item.ourScore)*100} />
-                      <Score label="API" value={item.apiScore} />
+                      <Score label="Our" value={Math.round(item.ourScore*100)} />
+                      <Score label="API" value={item.apiScore*100} />
                     </div>
                   </div>
                 </div>
