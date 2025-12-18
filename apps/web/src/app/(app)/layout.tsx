@@ -18,7 +18,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
       {/* App Content */}
       <div className="relative z-10">
         <Nav user={session?.user} />
-        <main>{children}</main>
+        <main className="pt-24">{children}</main>
       </div>
 
       {/* Footer */}

@@ -10,6 +10,7 @@ import {
   History,
   User,
   LogOut,
+  SmilePlus
 } from "lucide-react";
 
 interface NavProps {
@@ -28,6 +29,7 @@ export default function Nav({ user }: NavProps) {
     { href: "/scan", label: "Quick Scan", icon: Search },
     { href: "/history", label: "History", icon: History },
     { href: "/profile", label: "Profile", icon: User },
+    { href : "/about" , label:"about", icon :SmilePlus}
   ];
 
   const isActive = (href: string) => pathname === href;
