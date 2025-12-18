@@ -1,13 +1,23 @@
-export function decideVerdict(a: number, b: number) {
-  const hi = Number(process.env.VERDICT_HI ?? 0.7);
-  const lo = Number(process.env.VERDICT_LO ?? 0.3);
-  if (a < 0 || a == null) {
-  if (b >= hi) return "Fake";
-  if (b <= lo) return "Real";
-  return "Inconclusive";
-}
+export function decideVerdict(a: number | null, b: number | null) {
+  // If one score is missing, fall back to the other
+  if (a == null && b == null) return "Inconclusive";
 
-  if (a >= hi && b >= hi) return "Fake";
-  if (a <= lo && b <= lo) return "Real";
+  if (a == null) {
+    if (b!=null && b >= 0.8) return "Fake";
+    if (b!=null && b <= 0.2) return "Real";
+    return "Inconclusive";
+  }
+
+  if (b == null) {
+    if (a >= 0.8) return "Fake";
+    if (a <= 0.2) return "Real";
+    return "Inconclusive";
+  }
+
+  // ✅ Strong agreement cases
+  if (a >= 0.8 && b >= 0.8) return "Fake";
+  if (a <= 0.2 && b <= 0.2) return "Real";
+
+  // ❓ Everything else
   return "Inconclusive";
 }
